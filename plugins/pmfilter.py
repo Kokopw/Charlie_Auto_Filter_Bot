@@ -1415,8 +1415,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-    except Exception as e:
-        logging.exception("Exception in 'upi' callback")
+        except Exception as e:
+            logging.exception("Exception in 'upi' callback")
 
     elif query.data == "help":
         buttons = [[
