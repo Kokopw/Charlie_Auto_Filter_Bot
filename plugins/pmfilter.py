@@ -1396,25 +1396,25 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
         await query.answer(MSG_ALRT)
 
-        elif query.data == "upi_info":
-            try:
-                btn = [[ 
-                    InlineKeyboardButton('• ꜱᴇɴᴅ  ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ •', url=OWNER_LNK),
-                ],[
-                    InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='buy_info')
-                ]]
-            reply_markup = InlineKeyboardMarkup(btn)
-            await client.edit_message_media(                
-                chat_id=query.message.chat.id, 
-                message_id=query.message.id, 
-                media=InputMediaPhoto("https://files.catbox.moe/ibmrjz.jpg"),  # <- Image URL added here
-                reply_markup=reply_markup,
-            )
-            await query.message.edit_caption(
-                caption=script.PREMIUM_UPI_TEXT.format(OWNER_UPI_ID),
-                reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
-            )
+    elif query.data == "upi_info":
+        try:
+            btn = [[ 
+                InlineKeyboardButton('• ꜱᴇɴᴅ  ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ •', url=OWNER_LNK),
+            ],[
+                InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='buy_info')
+            ]]
+        reply_markup = InlineKeyboardMarkup(btn)
+        await client.edit_message_media(                
+            chat_id=query.message.chat.id, 
+            message_id=query.message.id, 
+            media=InputMediaPhoto("https://files.catbox.moe/ibmrjz.jpg"),  # <- Image URL added here
+            reply_markup=reply_markup,
+        )
+        await query.message.edit_caption(
+            caption=script.PREMIUM_UPI_TEXT.format(OWNER_UPI_ID),
+            reply_markup=reply_markup,
+            parse_mode=enums.ParseMode.HTML
+        )
     except Exception as e:
         logging.exception("Exception in 'upi' callback")
 
