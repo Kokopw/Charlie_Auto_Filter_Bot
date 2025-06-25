@@ -1396,33 +1396,27 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
         await query.answer(MSG_ALRT)
 
-    elif query.data == "donation":
-        buttons = [[
-                    InlineKeyboardButton('🌲 Sᴇɴᴅ Dᴏɴᴀᴛᴇ Sᴄʀᴇᴇɴsʜᴏᴛ Hᴇʀᴇ', url=OWNER_LNK)
+        elif query.data == "upi_info":
+            try:
+                btn = [[ 
+                    InlineKeyboardButton('• ꜱᴇɴᴅ  ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ •', url=OWNER_LNK),
                 ],[
-                    InlineKeyboardButton('⇍ ʙᴀᴄᴋ ⇏', callback_data='start')
+                    InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='buy_info')
                 ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text="● ◌ ◌"
-        )
-        await query.message.edit_text(
-            text="● ● ◌"
-        )
-        await query.message.edit_text(
-            text="● ● ●"
-        )
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await client.edit_message_media(
-            query.message.chat.id, 
-            query.message.id, 
-            InputMediaPhoto('https://files.catbox.moe/ibmrjz.jpg')
-        )
-        await query.message.edit_text(
-            text=script.DREAMXBOTZ_DONATION.format(query.from_user.mention, QR_CODE, OWNER_UPI_ID),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
+            reply_markup = InlineKeyboardMarkup(btn)
+            await client.edit_message_media(                
+                chat_id=query.message.chat.id, 
+                message_id=query.message.id, 
+                media=InputMediaPhoto("https://files.catbox.moe/ibmrjz.jpg"),  # <- Image URL added here
+                reply_markup=reply_markup,
+            )
+            await query.message.edit_caption(
+                caption=script.PREMIUM_UPI_TEXT.format(OWNER_UPI_ID),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+    except Exception as e:
+        logging.exception("Exception in 'upi' callback")
 
     elif query.data == "help":
         buttons = [[
